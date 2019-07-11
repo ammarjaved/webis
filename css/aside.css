@@ -1,0 +1,74 @@
+body {
+    overflow-x: hidden;
+}
+
+
+
+
+.wrap{
+    z-index: 10000;
+}
+
+@media only screen and (max-width: 575px) {
+
+
+
+    #toggleBaseGallery{
+        visibility: hidden;
+    }
+
+    aside.sideBar.hidden{
+        visibility: hidden;
+    }
+
+    .wrap ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #F2F3F7;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        margin: 4px;
+        display: block;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    li a i {
+        color: #7C7F83;
+    }
+
+    li a i:hover {
+        color: black;
+        font-weight: bold;
+    }
+
+    .active {
+        color: black !important;
+    }
+}
+.footer-box {
+    border-radius: 10px 10px 0 0 ;
+    margin: 0 10px;
+    position: absolute;
+    bottom: 63px;
+    z-index: 1000000;
+    width: 95%;
+    padding: 20px 10%;
+}
+
+.footer-box input {
+    width: 80%;
+    margin: 20px auto;
+}

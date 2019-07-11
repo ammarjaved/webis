@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en" ng-app="tocApp">
+<head>
+    <!-- Required meta tags -->
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- using online links -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="js/angular-ivh-treeview/dist/ivh-treeview.css"/>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt1uYJLjERTtaX3WTuztXF13VYinO1hDc&libraries=places"></script>
+
+    <link rel="stylesheet" href="js/angular-ivh-treeview/dist/ivh-treeview-theme-basic.css"/>
+    <script type="text/javascript" src="js/angular/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-aria/angular-aria.min.js"></script>
+    <script type="text/javascript" src="js/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="js/angular-messages/angular-messages.min.js"></script>
+    <script type="text/javascript" src="js/angular-ivh-treeview/dist/ivh-treeview.js"></script>
+    <script type="text/javascript" src="js/toc.controller.js"></script>
+
+    <!--<link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">-->
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+          integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+          crossorigin=""/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../node_modules/@icon/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="../node_modules/jquery-ui-dist/jquery-ui.min.css"> -->
+
+    <link rel="stylesheet" href="css/custom.css" >
+    <link rel="stylesheet" href="css/L.Control.BetterScale.css" >
+    <!--<link rel="stylesheet" href="css/leaflet.zoomdisplay.css" >-->
+    <link rel="stylesheet" href="css/leaflet.mousecoordinate.css" >
+    <link rel="stylesheet" href="css/L.Control.ZoomBox.css" >
+    <link rel="stylesheet" href="css/leaflet-history.css" >
+    <link rel="stylesheet" href="css/leaflet.draw.css" >
+    <link rel="stylesheet" href="css/leaflet-measure.css" >
+    <link rel="stylesheet" href="css/leaflet-search.src.css" >
+    <link rel="stylesheet" href="css/leaflet-search.mobile.src.css" >
+    <link rel="stylesheet" href="css/scrollbar.css" >
+    <link rel="stylesheet" href="js/distortableImage/leaflet.distortableimage.css" >
+    <link rel="stylesheet" href="js/toolbar/leaflet.toolbar.min.css"/>
+    <link rel="stylesheet" href="css/Leaflet.StyleEditor.min.css"/>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="js/styledLayerControl.css"/>
+
+    <link rel="stylesheet" href="css/aside.css" >
+
+    <!--<link rel="stylesheet" href="css/navbar.css" >-->
+    <!--<link rel="stylesheet" href="css/widget.css" >-->
+
+
+    <!--<link rel="stylesheet" href="css/navbar.css" >-->
+
+    <title>Map</title>
+</head>
+<body >
+
+
+
+
+<!--<header style="height: 10%;width: 100%">-->
+<!--<nav style="width: 100%" class="header navbar sticky-top navbar-expand-lg navbar-light bg-primary">-->
+    <!--<a class="navbar-brand" href="#" id="toggleBaseGallery" >Navbar</a>-->
+
+<!--</nav>-->
+<!--</header>-->
+
+<div class="container-fluid mapdivcontainer" >
+
+
+    <header id="header">
+        <div>
+            <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">
+                    <!--<img src="img/logo.webp" alt="" height="30">-->
+
+                </a>
+
+                <button class="navbar-toggler navbar-toggler-right" id="toggleBaseGallery_1" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span  class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto" id="menuList">
+
+                    </ul>
+
+                </div>
+                <ul class="navbar-nav mr-auto" id="rightMenu">
+                    <!--<li class="nav-item ">-->
+
+                        <!--<a href="#" class="nav-link" id="fullScreen" title="">-->
+                            <!--<i class="ti ti-fullscreen"></i>-->
+                        <!--</a>-->
+                    <!--</li>-->
+
+
+                    <li class="nav-item ">
+
+                        <a href="#" class="nav-link" id="toggleBaseGallery" title="Toggle side bar">
+                            <i class="ti ti-layout-sidebar-right"></i>
+                        </a>
+
+                    </li>
+                </ul>
+
+            </nav>
+
+            <nav style="background: lightblue" class="navbar navbar-expand-lg fixed-top navbar-light p-0 mt-5 rounded">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown10"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-database" aria-hidden="true"></i>
+                                Add Data</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown10">
+                                <input type="file" id="shp" class="fileclass"  style="display:none" accept=".zip"/>
+                                <input type="file" id="geojson" class="fileclass"  style="display:none" accept=".geojson"/>
+                                <input type="file" id="kml" class="fileclass"  style="display:none" accept=".kml"/>
+                                <input type="file" id="csv" class="fileclass"  style="display:none" accept=".csv"/>
+                                <input type="file" id="gpx" class="fileclass"  style="display:none" accept=".gpx"/>
+                                <input type="file" id="overlay" class="fileclass"  style="display:none" accept=".jpg,.png"/>
+                                <a class="dropdown-item" href="#" onClick="document.getElementById('shp').click()"><img src="css/images/icons/shp.png" style="width: 16px;height:16px" >&nbsp;SHP</a>
+                                <a class="dropdown-item" href="#" onClick="document.getElementById('geojson').click()"><i class="fa fa-file" aria-hidden="true"></i>&nbsp;GEOJSON</a>
+                                <a class="dropdown-item" href="#" onClick="document.getElementById('kml').click()"><img src="css/images/icons/kml.png" style="width: 16px;height:16px" >&nbsp;KML</a>
+                                <a class="dropdown-item" href="#" onClick="document.getElementById('csv').click()"><img src="css/images/icons/excel.png" style="width: 16px;height:16px" >&nbsp;CSV</a>
+                                <a class="dropdown-item" href="#" onClick="document.getElementById('gpx').click()"><i class="fa fa-file" aria-hidden="true"></i>&nbsp;GPX</a>
+
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                Add Web Services
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#" onclick="addWmsUrlHere()"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;Add WMS</a>
+                                <a class="dropdown-item" onClick="addEsriUrlHere()"><i class="fa fa-globe" aria-hidden="true"></i>Add Esri Dynamic Map </a>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#queryModal"><i class="fa fa-globe" aria-hidden="true"></i>query </a>
+                                <a class="dropdown-item" onClick="defaultExtent()"><i class="fa fa-globe" aria-hidden="true"></i>Default Extent </a>
+                                <a class="dropdown-item" onClick="getGeolocation()"><i class="fa fa-globe" aria-hidden="true"></i>Geolocation </a>
+                                <a class="dropdown-item" onClick="printMap()"><i class="fa fa-globe" aria-hidden="true"></i>Print Map </a>
+                                <a class="dropdown-item" onClick="routingApp()"><i class="fa fa-globe" aria-hidden="true"></i>Routing </a>
+
+
+
+
+
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- Modal -->
+            <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="helpModalLabel">${i18n.help}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                ${i18n.helpContent}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">${i18n.close}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="commonModel" style="background-color: rgba(25,225,225,0.5);">
+                <div class="modal-dialog modal-lg" >
+                    <div class="modal-content" style=" background-color: transparent; border: 0;">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header text-light" style="background-color: rgba(0, 120, 255,0.8)">
+                            <h4 class="modal-title" style="text-shadow: 1px 3px 9px black;" id="page_common"><i class="fa fa-globe"></i>Add URL</h4>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body text-center" style="background-color: rgba(245, 10, 100,0.7)">
+                            <div class="input-group mb-3" id="isTitleVisible">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Title</span>
+                                </div>
+                                <input type="text" class="form-control" id="common_dy_title" value="Untitled" placeholder="Enter Title Here...">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="messTitle">URL</span>
+                                </div>
+                                <input type="text" class="form-control" id="common_dy_url" placeholder="Enter Service URL Here...">
+                            </div>
+                            <div id="wms_div_com" class="text-left">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Layer Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="common_layer_wms" placeholder="Enter Layer Name Here...">
+                                </div>
+                                <label class="text-light"><input type="checkbox" class="form-control" id="common_transparent_wms">Transparent</label>
+                            </div>
+
+                            <input type="hidden" style="display: none" value="" id="common_type">
+                            <button class="btn btn-light" onclick="commonAddLayer()">Add To Map</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="esriModel" style="background-color: rgba(25,225,225,0.5);">
+                <div class="modal-dialog modal-lg" >
+                    <div class="modal-content" style=" background-color: transparent; border: 0;">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header text-light" style="background-color: rgba(0, 120, 255,0.8)">
+                            <h4 class="modal-title" style="text-shadow: 1px 3px 9px black;"><i class="fa fa-globe"></i> <h4 style="line-height: 1.5;" id="esri_title_type">ArcGIS Enterprise Dynamic Map Layer</h4></h4>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div id="esriDynamicDiv" class="modal-body text-center" style="background-color: rgba(45, 150, 10,0.7)">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Title</span>
+                                </div>
+                                <input type="text" class="form-control" id="esri_dy_title" value="Untitled Esri" placeholder="Enter Title Here...">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">URL</span>
+                                </div>
+                                <input type="text" class="form-control" id="esri_dy_url" placeholder="Enter ESRI Dynamic Map Service URL Here...">
+                            </div>
+
+
+                            <button class="btn btn-light" onclick="esriLayerUrl(0)">Add To Map</button>
+                        </div>
+                        <!-- Modal body -->
+                        <div id="esriTileDiv" class="modal-body text-center" style="background-color: rgba(45, 150, 10,0.7)">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Title</span>
+                                </div>
+                                <input type="text" class="form-control" id="esri_ti_title" value="Untitled Esri" placeholder="Enter Title Here...">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">URL</span>
+                                </div>
+                                <input type="text" class="form-control" id="esri_ti_url" placeholder="Enter ESRI Tile Map Service URL Here...">
+                            </div>
+
+
+                            <button class="btn btn-light" onclick="esriLayerUrl(1)">Add To Map</button>
+                        </div>
+                        <!-- Modal body -->
+                        <div id="esriFeatureDiv" class="modal-body text-center" style="background-color: rgba(45, 150, 10,0.7)">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Title</span>
+                                </div>
+                                <input type="text" class="form-control" id="esri_ft_title" value="Untitled Esri" placeholder="Enter Title Here...">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">URL</span>
+                                </div>
+                                <input type="text" class="form-control" id="esri_ft_url" placeholder="Enter ESRI Feature Layer Service URL Here...">
+                            </div>
+
+
+                            <button class="btn btn-light" onclick="esriLayerUrl(2)">Add To Map</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="main" class="row">
+
+        <div class="modal fade" id="queryModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content" style="width: 900px;margin-left: -400px;">
+                    <div style="background-color: #1b1d1f;" class="modal-header">
+                        <h4 class="modal-title" style="color: snow;">Query</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="query_1" >Example select</label>
+                            <select class="form-control" onchange="createQueryResult(this.value)" id="query_1">
+                                <option>Select Layer</option>
+                                <option value="mine">mine</option>
+                                <option value="quarry">quarry</option>
+
+                            </select>
+                        </div>
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>nam</th>
+                                <th>mineral</th>
+                                <th>mukim</th>
+                                <th>daerah</th>
+                                <th>negeri</th>
+                                <th>feature</th>
+                                <th>Mine_Pit_A</th>
+                                <th>layer</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tb" style="overflow: scroll; ">
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button onclick="exportTableToCSV('layer_data.csv')">Export to excel</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="infodiv" class="container-fluid hidden" style="position: absolute; top: 50%; z-index: 100001;height: 500px;width: 100vw ">
+            <div class="row" style="background-color: white;height: 100%;width: 100%">
+                <div class="col-md-12" style="">
+
+                </div>
+            </div>
+        </div>
+
+
+        <div id="map" style="z-index: 0" class="col-12"></div>
+
+    </div>
+
+    <aside class="sideBar">
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+			<li class="nav-item">
+                <a class="nav-link active" id="layerList-tab" data-toggle="tab" href="#layerList" role="tab" aria-controls="layerList" aria-selected="true">
+                    <i class="ti ti-layers-alt"></i>
+                </a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" id="basemap-tab" data-toggle="tab" href="#basemapGallery" role="tab" aria-controls="basemapGallery"
+                   aria-selected="false">
+                    <i class="ti ti-view-grid"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="legend-tab" data-toggle="tab" href="#legend" role="tab" aria-controls="legend" aria-selected="false">
+                    <i class="ti ti-image"></i>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="ccWidget-tab" data-toggle="tab" href="#ccWidget" role="tab" aria-controls="ccWidget" aria-selected="false">
+                    <i class="ti ti-location-arrow"></i>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content square scrollbar-rare-wind" id="myTabContent">
+
+
+            <!-- basemap gallery content-->
+            <div class="tab-pane fade" id="basemapGallery" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-content-title" > Basemap Gallery </div>
+
+
+            </div>
+
+            <div class="tab-pane fade show active" id="layerList" role="tabpanel" aria-labelledby="layerList-tab"  ng-controller="tocController as tocCtrl">
+
+                <!--<div style="background: lightblue" class="tab-content-title">-->
+                    <!--<a data-toggle="collapse" href="#overlay-list">Overlays</a>-->
+                <!--</div>-->
+                <!--<ul id="overlay-list" class="collapse show connectedSortable" style="list-style-type: none;padding: 0"></ul>-->
+                <!--<div style="background: lightblue" class="tab-content-title">-->
+                    <!--<a data-toggle="collapse" href="#ext-overlay-list">Data Overlays</a>-->
+                <!--</div>-->
+                <!--<ul id="ext-overlay-list" class="collapse show connectedSortable" style="list-style-type: none;padding: 0"></ul>-->
+                <!--<div style="background: lightcyan" class="tab-content-title">-->
+                    <!--<a data-toggle="collapse" href="#rf-layer-list" >State Reference Layer</a>-->
+                <!--</div>-->
+                <!--<ul id="rf-layer-list" class="collapse show connectedSortable" style="list-style-type: none;padding: 0;"></ul>-->
+                <div id="mainTocDiv"  >
+
+                    <div ivh-treeview="bag"
+                         ivh-treeview-default-selected-state="false"
+                         ivh-treeview-expand-to-depth=""
+                         ivh-treeview-twistie-expanded-tpl="tocCtrl.tplFolderOpen"
+                         ivh-treeview-twistie-collapsed-tpl="tocCtrl.tplFolderClose"
+                         ivh-treeview-twistie-leaf-tpl="tocCtrl.tplLeaf"
+                         twistieLeafTpl="#FF8159"
+                         ivh-treeview-on-cb-change="tocCtrl.otherAwesomeCallback(ivhNode, ivhIsSelected, ivhTree)">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="legend" role="tabpanel" aria-labelledby="ccWidget-tab">
+                <div class="tab-content-title">Legend</div>
+
+                <div class="shadow-sm p-4 mb-4 bg-white">
+                    <div  style="width: 100%;align-content: center" id="legend_1"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="tab-pane fade" id="ccWidget" role="tabpanel" aria-labelledby="ccWidget-tab">
+                <div class="tab-content-title">Coordinate Conversion</div>
+
+                <div class="shadow-sm p-4 mb-4 bg-white">
+                    <div id="coord" style="width: 100%;align-content: center"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </aside>
+
+<div class="wrap">
+    <footer  class="d-block d-sm-none">
+        <ul class="pl-4">
+            <li>
+                <a id="layer"><i class="fas fa-layer-group active"></i></a>
+            </li>
+
+            <li>
+                <a id="globe"><i class="fas fa-globe-americas"></i></a>
+            </li>
+
+            <!--<li>-->
+                <!--<a id="list"><i class="fas fa-list"></i></a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a id="measure"><i class="fas fa-ruler-combined"></i></a>-->
+            <!--</li>-->
+            <li>
+                <a id="search"><i class="ti ti-location-arrow"></i></a>
+            </li>
+        </ul>
+        <!--<div class="bg-white footer-box" id="show-globe">-->
+            <!--<div class="form-group">-->
+                <!--<input type="search" placeholder="Search here" class="rounded form-control">-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<h1>Globe</h1>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="bg-white footer-box" id="show-layer">-->
+            <!--<div class="form-group">-->
+                <!--<input type="search" placeholder="Search here" class="rounded form-control">-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<h1>Layer</h1>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="bg-white footer-box" id="show-list">-->
+            <!--<div class="form-group">-->
+                <!--<input type="search" placeholder="Search here" class="rounded form-control">-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<h1>List</h1>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="bg-white footer-box" id="show-measure">-->
+            <!--<div class="form-group">-->
+                <!--<input type="search" placeholder="Search here" class="rounded form-control">-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<h1>Measure</h1>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="bg-white footer-box" id="show-search">-->
+            <!--<div class="form-group">-->
+                <!--<input type="search" placeholder="Search here" class="rounded form-control">-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<h1>Search</h1>-->
+            <!--</div>-->
+        <!--</div>-->
+    </footer>
+</div>
+
+</div>
+
+
+    <!-- using online scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+            integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+            crossorigin=""></script>
+    <script src="js/leaflet.ajax.min.js"></script>
+    <script src="js/leaflet-search.src.js"></script>
+
+    <script src="js/L.Control.BetterScale.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <!--<script src="js/leaflet.zoomdisplay.js"></script>-->
+    <script src="js/leaflet.mousecoordinate.min.js"></script>
+    <script src="js/L.Control.ZoomBox.min.js"></script>
+    <script src="js/leaflet-history.js"></script>
+    <script src="js/leaflet.draw-custom.js"></script>
+    <script src="js/leaflet-measure.js"></script>
+    <script src="js/Leaflet.StyleEditor.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <script src="https://unpkg.com/esri-leaflet@2.1.1/dist/esri-leaflet.js"
+        integrity="sha512-ECQqaYZke9cSdqlFG08zSkudgrdF6I1d8ViSa7I3VIszJyVqw4ng1G8sehEXlumdMnFYfzY0tMgdQa4WCs9IUw=="
+        crossorigin=""></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src='js/leaflet-omnivore.min.js'></script>
+
+<script src='js/shapefile/shp.js'></script>
+<script src='js/shapefile/leaflet.shpfile.js'></script>
+<script src="js/toolbar/leaflet.toolbar.min.js"></script>
+<script src='js/distortableImage/leaflet.distortableimage.js'></script>
+<script src='js/vector_grid/Leaflet.VectorGrid.js'></script>
+<script src='js/vector_grid/zlib.js'></script>
+<script src='js/bootbox.min.js'></script>
+<script src='js/styledLayerControl.js'></script>
+<script src='js/kml/kml.js'></script>
+<link rel="stylesheet" href="js/locate/L.Control.Locate.css"/>
+<script type="text/javascript" src="js/locate/L.Control.Locate.min.js"></script>
+<link rel="stylesheet" type="text/css" href="js/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+<script type="text/javascript" src="js/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+<script type="text/javascript" src="js/leaflet-routing-machine/examples/Control.Geocoder.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+
+    <script src="js/custom.js"></script>
+    <script src="js/add-data.js"></script>
+</body>
+</html>
